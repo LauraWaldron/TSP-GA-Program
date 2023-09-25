@@ -1,3 +1,5 @@
+import sys
+print(sys.executable)
 import numpy as np
 import random
 import operator
