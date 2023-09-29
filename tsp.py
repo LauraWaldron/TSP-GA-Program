@@ -160,13 +160,6 @@ def geneticAlgorithm(population, popSize, eliteSize, mutationRate, generations):
     bestRoute = pop[bestRouteIndex]
     return bestRoute
 
-cityList = []
-
-for i in range(0, 25):
-    cityList.append(City(x=int(random.random() * 200), y=int(random.random() * 200)))
-
-geneticAlgorithm(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=500)
-
 def geneticAlgorithmPlot(population, popSize, eliteSize, mutationRate, generations):
     pop = initialPopulation(popSize, population)
     progress = []
@@ -180,6 +173,28 @@ def geneticAlgorithmPlot(population, popSize, eliteSize, mutationRate, generatio
     plt.ylabel('Distance')
     plt.xlabel('Generation')
     plt.show()
-    
+   
+#The main section of our program:
+print("Welcome to the traveling salesman problem!")
+genSize = int(input("Please enter the size of each generation: "))
+genTotal = int(input("Please enter the total amount of generations: "))
+cityNumber = int(input("Please enter the number of cities: "))
+stagnant = int(input("Please enter the amount of stagnat generations we should stop after: "))
+eliteSize = int(input("Please enter the float porportion: "))
+mutationRate = float(input("Please enter the float mutation rate: "))
+
+cityList = []
+
+for i in range(0, 25):
+    cityList.append(City(x=int(random.random() * 200), y=int(random.random() * 200)))
+best_distance = float('inf') #find the best distance
+stagnat = 0
+for g in range(genTotal):
+    bestRoute = geneticAlgorithm(population = cityList, popSize = genSize, eliteSize=eliteSize, mutationRate=mutationRate, generations = 500)
+    current_distance = 1 /rankRoutes([bestRoute])[0][1] #what is this solving?
+    print(f"Best solution from generation {g + 1} is {current_distance}")
+
+#geneticAlgorithm(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=500)
+ 
 geneticAlgorithmPlot(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=500)
 
