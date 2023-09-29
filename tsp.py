@@ -188,13 +188,27 @@ cityList = []
 for i in range(0, 25):
     cityList.append(City(x=int(random.random() * 200), y=int(random.random() * 200)))
 best_distance = float('inf') #find the best distance
-stagnat = 0
+stagnat_count = 0
 for g in range(genTotal):
     bestRoute = geneticAlgorithm(population = cityList, popSize = genSize, eliteSize=eliteSize, mutationRate=mutationRate, generations = 500)
     current_distance = 1 /rankRoutes([bestRoute])[0][1] #what is this solving?
     print(f"Best solution from generation {g + 1} is {current_distance}")
 
+    if current_distance < best_distance: #check if the distance is the best
+        best_distance = current_distance #set the new best distance
+        stagnant_count = 0 #reset the stagnant count
+    else:
+        stagnant_count += 1 #add one to the stagnant count
+    
+    if stagnant_count >= stagnant:
+        print(f"We had to stop after {stagnant} stagnant generations.")
+        break
+
+#print the results
+print(f"The best solution is {best_distance} km.")
+print("And it goes to the cities in this order: ")
+print(bestRoute)
 #geneticAlgorithm(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=500)
  
-geneticAlgorithmPlot(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=500)
+#geneticAlgorithmPlot(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=500)
 
