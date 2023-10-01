@@ -181,20 +181,6 @@ def geneticAlgorithm(population, popSize, eliteSize, mutationRate, generations):
     bestRoute = pop[bestRouteIndex] #use the bestRouteIndex (found by rankRoutes)
     return bestRoute
 
-#define a genetic algorithm graphing (not needed in this program, but here in case)
-def geneticAlgorithmPlot(population, popSize, eliteSize, mutationRate, generations):
-    pop = initialPopulation(popSize, population)
-    progress = []
-    progress.append(1 / rankRoutes(pop)[0][1])
-    
-    for i in range(0, generations):
-        pop = nextGeneration(pop, eliteSize, mutationRate)
-        progress.append(1 / rankRoutes(pop)[0][1])
-    
-    plt.plot(progress)
-    plt.ylabel('Distance')
-    plt.xlabel('Generation')
-    plt.show()
    
 #The main section of our program:
 print("Welcome to the traveling salesman problem!")
@@ -238,8 +224,3 @@ for g in range(genTotal):
 print(f"The best solution is {best_distance} km.")
 print("And it goes to the cities in this order: ")
 print(bestRoute) #print the best route of the cities
-
-#extra calls to cities prior to our changing of the algorthim
-#geneticAlgorithm(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=500)
-#geneticAlgorithmPlot(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=500)
-
